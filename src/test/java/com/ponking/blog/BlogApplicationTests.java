@@ -24,7 +24,11 @@ public class BlogApplicationTests {
 
 
     @Test
-    public void controllerTest(){
+    public void TestApp(){
+        String aa = "aaa";
+        String bb = "aaa";
+        System.out.println(aa.toString());
+        System.out.println(bb);
 
     }
 

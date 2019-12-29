@@ -16,6 +16,9 @@ public class Blog {
     @GeneratedValue
     private Long id;
     private String title;
+
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
     private String content;
     private String firstPicture;
     private String flag;
@@ -24,9 +27,15 @@ public class Blog {
     private boolean shareStatement;
     private boolean commentabled;
     private boolean published;
-    private boolean recomend;
+    private boolean recommend;
+    private String description;
+
+    //不用导入数据库
+    @Transient
+    private String tagIds;
+
     @Temporal(TemporalType.TIMESTAMP)
-    private Date creatTime;
+    private Date createTime;
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTime;
 
@@ -44,6 +53,14 @@ public class Blog {
 
     public Blog (){
 
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public User getUser() {
@@ -158,20 +175,20 @@ public class Blog {
         this.published = published;
     }
 
-    public boolean isRecomend() {
-        return recomend;
+    public boolean isRecommend() {
+        return recommend;
     }
 
-    public void setRecomend(boolean recomend) {
-        this.recomend = recomend;
+    public void setRecommend(boolean recommend) {
+        this.recommend = recommend;
     }
 
-    public Date getCreatTime() {
-        return creatTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatTime(Date creatTime) {
-        this.creatTime = creatTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Date getUpdateTime() {
@@ -180,6 +197,37 @@ public class Blog {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
+    }
+
+    public void init(){
+        this.tagIds = tagsToIds(this.getTags());
+    }
+
+    // value = 1,2,3
+    private String tagsToIds(List<Tag> tags){
+        if(!tags.isEmpty()){
+            StringBuffer ids = new StringBuffer();
+            boolean flag = false;
+            for(Tag tag:tags){
+                if(flag){
+                    ids.append(",");
+                }else{
+                    flag = true;
+                }
+                ids.append(tag.getId());
+            }
+            return ids.toString();
+        }else{
+            return tagIds;
+        }
     }
 
     @Override
@@ -195,8 +243,8 @@ public class Blog {
                 ", shareStatement=" + shareStatement +
                 ", commentabled=" + commentabled +
                 ", published=" + published +
-                ", recomend=" + recomend +
-                ", creatTime=" + creatTime +
+                ", reconmend=" + recommend +
+                ", creatTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';
     }
