@@ -17,6 +17,7 @@ public class User {
     private String nickname;
     private String username;
     private String password;
+    private String email;
     private String avatar;
     private String type;
     @Temporal(TemporalType.TIMESTAMP)
@@ -106,6 +107,14 @@ public class User {
         this.updateTime = updateTime;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 
     @Override
     public String toString() {
@@ -114,10 +123,12 @@ public class User {
                 ", nickname='" + nickname + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", type='" + type + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
+                ", blogs=" + blogs +
                 '}';
     }
 }
