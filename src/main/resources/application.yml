@@ -1,9 +1,16 @@
 spring:
   thymeleaf:
     mode: HTML
+    cache: false
   profiles:
     active: dev
   messages:
     basename: i18n/messages
+  mvc:
+    favicon:
+      enabled: true
 
-comment.avatar: /static/images/avatar.png
+
+
+
+comment.avatar: /images/avatar.png

@@ -5,6 +5,8 @@ package com.ponking.blog.service;/*
 
 import com.ponking.blog.dao.CommentRepository;
 import com.ponking.blog.po.Comment;
+import com.ponking.blog.util.MailInfo;
+import com.ponking.blog.util.MailUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -32,7 +34,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public Comment saveComment(Comment comment) {
+    public Comment saveComment(Comment comment) throws Exception {
         //前端表单默认parentCommentId=-1
         Long parentCommentId = comment.getParentComment().getId();
         if(parentCommentId != -1){
@@ -40,6 +42,7 @@ public class CommentServiceImpl implements CommentService {
         }else {
             comment.setParentComment(null);
         }
+        MailUtil.sendMail(MailInfo.getContent(comment),MailInfo.getSubject(comment));
         return commentRepository.save(comment);
     }
 

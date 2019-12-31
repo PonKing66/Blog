@@ -38,7 +38,7 @@ public class CommentController {
     }
 
     @PostMapping("/comments")
-    public String commentPost(Comment comment, HttpSession session){
+    public String commentPost(Comment comment, HttpSession session) throws Exception {
         Long blogId = comment.getBlog().getId();
         comment.setBlog(blogService.getBlog(blogId));
         User user = (User)session.getAttribute("user");
